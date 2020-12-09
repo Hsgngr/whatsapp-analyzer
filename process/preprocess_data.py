@@ -100,5 +100,36 @@ def remove_inactive_users(df, min_messages=10):
     df = df[df.User.isin(to_keep)]
     return df
 
+
+def select_by_users(df,users):
+    """Selects some of the users so we do not
+    need to process every user in the group
+    
+    Parameters:
+    -----------
+    df : pandas dataframe
+        Dataframe of all messages 
+    users: string array
+        The users that you want to keep
+        
+    Returns:
+    --------
+    df : pandas dataframe
+        Dataframe of all messages with selected users
+    
+    """
+    df_new =  df.loc[df['User'].isin(users)]
+    return df_new
+
+###############################################################################
 df1=remove_inactive_users(df,10)
 users = df.User.value_counts()
+###############################################################################
+users1 = ['Selim Olcuoglu','Ufuk Ural','Deniz Yagmur Karatepe', 'Merve Sahin', 'Berfin Erdogan ']
+
+users2 = ['Burak Ural','Basak Didem Daglioglu','Ufuk Ural','Berfin Erdogan']
+
+user3 = ['Ege Hosgungor']
+
+df3 = select_by_users(df1, user3)
+plot_messages(df3, colors=None, trendline=False, savefig=False, dpi=100)
